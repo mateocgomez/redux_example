@@ -12,6 +12,7 @@ import {
 
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
+import Axios from "axios";
 //Crear nuevos productos
 export function crearNuevoProductoAction(producto) {
   return async (dispatch) => {
@@ -89,7 +90,11 @@ const descargaProductosError = () => ({
 export function borrarProductoAction(id) {
   return async (dispatch) => {
     dispatch(obtenerProductoEliminar(id));
-    console.log(id);
+    try {
+      const resultado = await clienteAxios.delete(`/productos/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
